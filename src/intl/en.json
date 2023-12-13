@@ -1,7 +1,57 @@
 {
   "layout": {
+    "auth": {
+      "copyright": "© {year, date, ::yyyy} Locally. All rights reserved."
+    },
     "main": {
       "description": "AI generated translations for your apps, websites, and more",
+      "title": "Locally"
+    }
+  },
+  "page": {
+    "auth": {
+      "signIn": {
+        "action": {
+          "signUp": "New user?",
+          "submit": "Sign in"
+        },
+        "field": {
+          "email": {
+            "label": "Email",
+            "placeholder": "ali@example.com"
+          },
+          "password": {
+            "label": "Password",
+            "placeholder": "$tr0ngP@ssw0rd"
+          }
+        },
+        "title": "Sign in"
+      },
+      "signUp": {
+        "action": {
+          "signIn": "Existing user?",
+          "submit": "Sign up"
+        },
+        "field": {
+          "email": {
+            "label": "Email",
+            "placeholder": "ali@example.com"
+          },
+          "name": {
+            "label": "Name",
+            "placeholder": "Ali Zahid"
+          },
+          "password": {
+            "label": "Password",
+            "placeholder": "$tr0ngP@ssw0rd"
+          }
+        },
+        "title": "Sign up"
+      }
+    },
+    "landing": {
+      "description": "AI generated translations for your apps, websites, and more",
+      "start": "Get started",
       "title": "Locally"
     }
   }

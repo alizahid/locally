@@ -2,14 +2,16 @@ const { resolve } = require('node:path')
 
 const project = resolve(process.cwd(), 'tsconfig.json')
 
+const styleGuide = [
+  '@vercel/style-guide/eslint/node',
+  '@vercel/style-guide/eslint/browser',
+  '@vercel/style-guide/eslint/typescript',
+  '@vercel/style-guide/eslint/react',
+].map(require.resolve)
+
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
-  extends: [
-    '@vercel/style-guide/eslint/node',
-    '@vercel/style-guide/eslint/browser',
-    '@vercel/style-guide/eslint/typescript',
-    '@vercel/style-guide/eslint/react',
-  ].map(require.resolve),
+  extends: [...styleGuide, 'plugin:@next/next/recommended'],
   globals: {
     JSX: true,
     React: true,
@@ -39,6 +41,14 @@ module.exports = {
       },
     ],
     '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-misused-promises': [
+      'error',
+      {
+        checksVoidReturn: {
+          attributes: false,
+        },
+      },
+    ],
     'import/no-default-export': 'off',
     'import/no-extraneous-dependencies': 'error',
     'import/order': 'off',
