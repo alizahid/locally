@@ -5,9 +5,10 @@ import { z } from 'zod'
 import { redirect } from '~/intl'
 import { createProjectId } from '~/lib/slug'
 import { createClient } from '~/lib/supabase/server'
+import { LanguageSchema } from '~/lib/translations'
 
 const schema = z.object({
-  locale: z.string().min(1),
+  locale: LanguageSchema,
   name: z.string().min(1),
   slug: z.string().min(1),
 })

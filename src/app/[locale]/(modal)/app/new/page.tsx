@@ -17,6 +17,8 @@ import { type Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 
+import { languages } from '~/lib/translations'
+
 import { createProject } from './action'
 
 type Props = {
@@ -35,6 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function Page({ searchParams }: Props) {
   const t = useTranslations('page.app.new')
+  const tLocale = useTranslations('shared.locale')
 
   return (
     <form action={createProject}>
@@ -42,7 +45,7 @@ export default function Page({ searchParams }: Props) {
         <Heading>{t('title')}</Heading>
 
         {searchParams.error ? (
-          <CalloutRoot size="1" variant="surface">
+          <CalloutRoot color="red" size="1" variant="surface">
             <CalloutIcon>
               <ExclamationTriangleIcon />
             </CalloutIcon>
@@ -83,9 +86,9 @@ export default function Page({ searchParams }: Props) {
               <SelectTrigger />
 
               <SelectContent>
-                {(['en', 'ar', 'de', 'es', 'fr', 'it'] as const).map((item) => (
+                {languages.map((item) => (
                   <SelectItem key={item} value={item}>
-                    {t(`field.locale.${item}`)}
+                    {tLocale(`${item}.name`)} ({tLocale(`${item}.country`)})
                   </SelectItem>
                 ))}
               </SelectContent>

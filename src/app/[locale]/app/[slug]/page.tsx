@@ -1,8 +1,9 @@
-import { Code, Flex, Heading } from '@radix-ui/themes'
 import { type Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 import { fetchProject } from '~/queries/project'
+
+import { PageClient } from './page-client'
 
 type Props = {
   params: {
@@ -29,13 +30,5 @@ export default async function Page({ params }: Props) {
     notFound()
   }
 
-  return (
-    <Flex direction="column" gap="4">
-      <Heading>{project.name}</Heading>
-
-      <Code size="1">
-        <pre>{JSON.stringify(project, null, 2)}</pre>
-      </Code>
-    </Flex>
-  )
+  return <PageClient project={project} />
 }

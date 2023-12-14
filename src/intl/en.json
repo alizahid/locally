@@ -29,12 +29,6 @@
         },
         "field": {
           "locale": {
-            "ar": "Arabic (United Arab Emirates)",
-            "de": "German (Germany)",
-            "en": "English (United States)",
-            "es": "Spanish (Spain)",
-            "fr": "French (France)",
-            "it": "Italian (Italy)",
             "label": "Primary locale"
           },
           "name": {
@@ -48,7 +42,29 @@
         },
         "title": "New project"
       },
-      "project": {}
+      "project": {
+        "translations": {
+          "add": {
+            "action": {
+              "cancel": "Cancel",
+              "submit": "Add locale"
+            },
+            "description": "Add a language you want to translate your content to.",
+            "title": "Add locale"
+          },
+          "header": {
+            "country": "Country",
+            "locale": "Locale"
+          },
+          "title": "Translations"
+        },
+        "upload": {
+          "action": "Upload",
+          "file": "{name} ({keys, plural, =0 {no phrases} =1 {1 phrase} other {# phrases}})",
+          "placeholder": "Select file",
+          "title": "Upload JSON for {locale} ({country})"
+        }
+      }
     },
     "auth": {
       "signIn": {
@@ -98,6 +114,34 @@
       "description": "AI generated translations for your apps, websites, and more",
       "start": "Get started",
       "title": "Locally"
+    }
+  },
+  "shared": {
+    "locale": {
+      "ar": {
+        "country": "United Arab Emirates",
+        "name": "Arabic"
+      },
+      "de": {
+        "country": "Germany",
+        "name": "German"
+      },
+      "en": {
+        "country": "United States",
+        "name": "English"
+      },
+      "es": {
+        "country": "Spain",
+        "name": "Spanish"
+      },
+      "fr": {
+        "country": "France",
+        "name": "French"
+      },
+      "it": {
+        "country": "Italy",
+        "name": "Italian"
+      }
     }
   }
 }

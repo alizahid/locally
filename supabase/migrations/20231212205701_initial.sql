@@ -60,6 +60,9 @@ create unique index projects__slug on projects(slug);
 -- collaborators
 create unique index collaborators__user on collaborators(project_id, user_id);
 
+-- translations
+create unique index translations__locale on translations(project_id, locale);
+
 -- generations
 create index generations__phrase on generations(phrase);
 
@@ -145,6 +148,15 @@ insert to authenticated with check (
           from collaborators
           where user_id = auth.uid ()
         )
+    )
+  );
+
+create policy "Users can view translations for their projects" on translations for
+select using (
+    project_id in (
+      select project_id
+      from collaborators
+      where user_id = auth.uid ()
     )
   );
 

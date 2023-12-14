@@ -40,7 +40,7 @@ export default function Page({ searchParams }: Props) {
         <Heading>{t('title')}</Heading>
 
         {searchParams.error ? (
-          <CalloutRoot size="1" variant="surface">
+          <CalloutRoot color="red" size="1" variant="surface">
             <CalloutIcon>
               <ExclamationTriangleIcon />
             </CalloutIcon>

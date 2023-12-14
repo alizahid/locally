@@ -1,4 +1,5 @@
 import { createClient } from '~/lib/supabase/server'
+import { type Language } from '~/lib/translations'
 
 export async function fetchProject(slug: string) {
   const supabase = createClient()
@@ -15,8 +16,8 @@ export async function fetchProject(slug: string) {
 
   return {
     id: data.id,
-    languages: data.translations.map((item) => item.locale),
-    locale: data.locale,
+    languages: data.translations.map((item) => item.locale as Language),
+    locale: data.locale as Language,
     name: data.name,
     role: data.collaborators[0].role,
     slug: data.slug,
