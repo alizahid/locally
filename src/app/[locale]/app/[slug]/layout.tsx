@@ -4,7 +4,7 @@ import { redirect } from '~/intl'
 import { createClient } from '~/lib/supabase/server'
 import { fetchProjects } from '~/queries/projects'
 
-import { Content } from './content'
+import { LayoutClient } from './layout-client'
 
 type Props = {
   children: ReactNode
@@ -35,12 +35,12 @@ export default async function Layout({ children, params }: Props) {
   }
 
   return (
-    <Content
+    <LayoutClient
       project={project}
       projects={projects}
       user={session.data.session.user}
     >
       {children}
-    </Content>
+    </LayoutClient>
   )
 }
