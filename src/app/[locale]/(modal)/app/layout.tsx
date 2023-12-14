@@ -1,4 +1,3 @@
-import { Container } from '@radix-ui/themes'
 import { type ReactNode } from 'react'
 
 import { redirect } from '~/intl'
@@ -17,5 +16,5 @@ export default async function Layout({ children }: Props) {
     redirect('/auth/sign-in')
   }
 
-  return <Container p="4">{children}</Container>
+  return <>{children}</>
 }

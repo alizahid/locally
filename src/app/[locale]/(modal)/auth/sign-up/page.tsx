@@ -5,6 +5,7 @@ import {
   CalloutRoot,
   CalloutText,
   Flex,
+  Grid,
   Heading,
   Text,
   TextFieldInput,
@@ -49,25 +50,35 @@ export default function Page({ searchParams }: Props) {
           </CalloutRoot>
         ) : null}
 
-        <Text as="label">
-          <Flex direction="column" gap="1">
-            <Text size="2" weight="medium">
-              {t('field.name.label')}
-            </Text>
+        <Grid columns="2" gap="4">
+          <Text as="label" size="1" weight="medium">
+            <Flex direction="column" gap="1">
+              {t('field.firstName.label')}
 
-            <TextFieldInput
-              name="name"
-              placeholder={t('field.name.placeholder')}
-              required
-            />
-          </Flex>
-        </Text>
+              <TextFieldInput
+                name="firstName"
+                placeholder={t('field.firstName.placeholder')}
+                required
+              />
+            </Flex>
+          </Text>
 
-        <Text as="label">
+          <Text as="label" size="1" weight="medium">
+            <Flex direction="column" gap="1">
+              {t('field.lastName.label')}
+
+              <TextFieldInput
+                name="lastName"
+                placeholder={t('field.lastName.placeholder')}
+                required
+              />
+            </Flex>
+          </Text>
+        </Grid>
+
+        <Text as="label" size="1" weight="medium">
           <Flex direction="column" gap="1">
-            <Text size="2" weight="medium">
-              {t('field.email.label')}
-            </Text>
+            {t('field.email.label')}
 
             <TextFieldInput
               name="email"
@@ -78,7 +89,7 @@ export default function Page({ searchParams }: Props) {
           </Flex>
         </Text>
 
-        <Text as="label" size="2" weight="medium">
+        <Text as="label" size="1" weight="medium">
           <Flex direction="column" gap="1">
             {t('field.password.label')}
 
@@ -106,23 +117,32 @@ export default function Page({ searchParams }: Props) {
 async function signIn(form: FormData) {
   'use server'
 
-  const { email, name, password } = getSignUpData(form)
+  const result = getSignUpData(form)
+
+  if (result.error) {
+    redirect(`/auth/sign-in?error=${encodeURIComponent(result.error.message)}`)
+
+    return
+  }
 
   const supabase = createClient()
 
   const { error } = await supabase.auth.signUp({
-    email,
+    email: result.data.email,
     options: {
       data: {
-        name,
+        first_name: result.data.firstName,
+        last_name: result.data.lastName,
       },
     },
-    password,
+    password: result.data.password,
   })
 
   if (error) {
-    return redirect(`/auth/sign-up?error=${error.message}`)
+    redirect(`/auth/sign-up?error=${encodeURIComponent(error.message)}`)
+
+    return
   }
 
-  return redirect('/app')
+  redirect('/app')
 }

@@ -1,17 +1,27 @@
-import { email, minLength, object, parse, string } from 'valibot'
+import { z } from 'zod'
 
-const SignUpSchema = object({
-  email: string([email()]),
-  name: string([minLength(1)]),
-  password: string([minLength(6)]),
+const schema = z.object({
+  email: z.string().email(),
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
+  password: z.string().min(6),
 })
 
 export function getSignUpData(form: FormData) {
-  const data = parse(SignUpSchema, {
+  const result = schema.safeParse({
     email: form.get('email'),
-    name: form.get('name'),
+    firstName: form.get('firstName'),
+    lastName: form.get('lastName'),
     password: form.get('password'),
   })
 
-  return data
+  if (result.success) {
+    return {
+      data: result.data,
+    }
+  }
+
+  return {
+    error: result.error,
+  }
 }

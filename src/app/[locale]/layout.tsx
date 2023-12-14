@@ -1,12 +1,13 @@
 import { Theme } from '@radix-ui/themes'
 import { type Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { NextIntlClientProvider } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { type ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import { mono, sans } from '~/assets/fonts'
-import { type Locale, locales, setRequestLocale } from '~/intl'
+import { type Locale, locales, messages, setRequestLocale } from '~/intl'
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('layout.main')
@@ -37,9 +38,14 @@ export default function Layout({ children, params }: Props) {
       lang={params.locale}
     >
       <body>
-        <Theme accentColor="orange" radius="large">
-          {children}
-        </Theme>
+        <NextIntlClientProvider
+          messages={messages[params.locale]}
+          timeZone="Asia/Dubai"
+        >
+          <Theme accentColor="orange" radius="large">
+            {children}
+          </Theme>
+        </NextIntlClientProvider>
       </body>
     </html>
   )

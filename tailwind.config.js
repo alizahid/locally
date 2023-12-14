@@ -71,6 +71,7 @@ module.exports = {
       xs: '520px',
     },
     spacing: {
+      0: '0px',
       1: 'var(--space-1)',
       2: 'var(--space-2)',
       3: 'var(--space-3)',

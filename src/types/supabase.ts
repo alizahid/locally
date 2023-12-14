@@ -173,20 +173,23 @@ export interface Database {
       users: {
         Row: {
           created_at: string
+          first_name: string
           id: string
-          name: string
+          last_name: string
           photo: string | null
         }
         Insert: {
           created_at?: string
+          first_name: string
           id: string
-          name: string
+          last_name: string
           photo?: string | null
         }
         Update: {
           created_at?: string
+          first_name?: string
           id?: string
-          name?: string
+          last_name?: string
           photo?: string | null
         }
         Relationships: [

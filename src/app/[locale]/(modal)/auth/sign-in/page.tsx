@@ -49,11 +49,9 @@ export default function Page({ searchParams }: Props) {
           </CalloutRoot>
         ) : null}
 
-        <Text as="label">
+        <Text as="label" size="1" weight="medium">
           <Flex direction="column" gap="1">
-            <Text size="2" weight="medium">
-              {t('field.email.label')}
-            </Text>
+            {t('field.email.label')}
 
             <TextFieldInput
               name="email"
@@ -64,7 +62,7 @@ export default function Page({ searchParams }: Props) {
           </Flex>
         </Text>
 
-        <Text as="label" size="2" weight="medium">
+        <Text as="label" size="1" weight="medium">
           <Flex direction="column" gap="1">
             {t('field.password.label')}
 
@@ -92,18 +90,26 @@ export default function Page({ searchParams }: Props) {
 async function signIn(form: FormData) {
   'use server'
 
-  const { email, password } = getSignInData(form)
+  const result = getSignInData(form)
+
+  if (result.error) {
+    redirect(`/auth/sign-in?error=${encodeURIComponent(result.error.message)}`)
+
+    return
+  }
 
   const supabase = createClient()
 
   const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
+    email: result.data.email,
+    password: result.data.password,
   })
 
   if (error) {
-    return redirect(`/auth/sign-in?error=${error.message}`)
+    redirect(`/auth/sign-in?error=${encodeURIComponent(error.message)}`)
+
+    return
   }
 
-  return redirect('/app')
+  redirect('/app')
 }

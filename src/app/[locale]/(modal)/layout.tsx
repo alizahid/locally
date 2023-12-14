@@ -9,8 +9,8 @@ type Props = {
   children: ReactNode
 }
 
-export function Content({ children }: Props) {
-  const t = useTranslations('layout.auth')
+export default function Layout({ children }: Props) {
+  const t = useTranslations('layout.modal')
 
   return (
     <Flex
@@ -24,7 +24,7 @@ export function Content({ children }: Props) {
     >
       <Link asChild>
         <NavLink href="/">
-          <Logo />
+          <Logo className="h-6 w-6" />
         </NavLink>
       </Link>
 
@@ -32,7 +32,7 @@ export function Content({ children }: Props) {
         {children}
       </Card>
 
-      <Text color="gray" size="2">
+      <Text color="gray" size="1">
         {t('copyright', {
           year: new Date(),
         })}

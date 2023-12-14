@@ -18,6 +18,7 @@ export const messages: Record<string, IntlMessages> = {
 
 export default getRequestConfig(({ locale }) => ({
   messages: messages[locale],
+  timeZone: 'Asia/Dubai',
 }))
 
 export const {

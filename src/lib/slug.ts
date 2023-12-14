@@ -5,15 +5,15 @@ const createId = init({
 })
 
 export function createProjectId() {
-  return `pro_${createId()}`
+  return `prj_${createId()}`
 }
 
 export function createCollaboratorId() {
-  return `col_${createId()}`
+  return `clb_${createId()}`
 }
 
 export function createTranslationId() {
-  return `tra_${createId()}`
+  return `trn_${createId()}`
 }
 
 export function createGenerationId() {

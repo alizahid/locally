@@ -1,14 +1,55 @@
 {
   "layout": {
-    "auth": {
-      "copyright": "© {year, date, ::yyyy} Locally. All rights reserved."
+    "app": {
+      "project": {
+        "collaborators": "Collaborators",
+        "new": "New project",
+        "settings": "Settings",
+        "switch": "Switch"
+      },
+      "user": {
+        "greeting": "Hello, {name}",
+        "profile": "Profile",
+        "signOut": "Sign out"
+      }
     },
     "main": {
       "description": "AI generated translations for your apps, websites, and more",
       "title": "Locally"
+    },
+    "modal": {
+      "copyright": "© {year, date, ::yyyy} Locally. All rights reserved."
     }
   },
   "page": {
+    "app": {
+      "new": {
+        "action": {
+          "submit": "Create project"
+        },
+        "field": {
+          "locale": {
+            "ar": "Arabic (United Arab Emirates)",
+            "de": "German (Germany)",
+            "en": "English (United States)",
+            "es": "Spanish (Spain)",
+            "fr": "French (France)",
+            "it": "Italian (Italy)",
+            "label": "Primary locale"
+          },
+          "name": {
+            "label": "Name",
+            "placeholder": "My Project"
+          },
+          "slug": {
+            "label": "Slug",
+            "placeholder": "my-project"
+          }
+        },
+        "title": "New project"
+      },
+      "project": {}
+    },
     "auth": {
       "signIn": {
         "action": {
@@ -37,9 +78,13 @@
             "label": "Email",
             "placeholder": "ali@example.com"
           },
-          "name": {
-            "label": "Name",
-            "placeholder": "Ali Zahid"
+          "firstName": {
+            "label": "First name",
+            "placeholder": "Ali"
+          },
+          "lastName": {
+            "label": "Last name",
+            "placeholder": "Zahid"
           },
           "password": {
             "label": "Password",

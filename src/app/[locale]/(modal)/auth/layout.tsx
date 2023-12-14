@@ -3,8 +3,6 @@ import { type ReactNode } from 'react'
 import { redirect } from '~/intl'
 import { createClient } from '~/lib/supabase/server'
 
-import { Content } from './content'
-
 type Props = {
   children: ReactNode
 }
@@ -18,5 +16,5 @@ export default async function Layout({ children }: Props) {
     redirect('/app')
   }
 
-  return <Content>{children}</Content>
+  return <>{children}</>
 }
