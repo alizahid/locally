@@ -17,10 +17,7 @@ import { type Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 
-import { redirect } from '~/intl'
-import { createProjectId } from '~/lib/slug'
-import { createClient } from '~/lib/supabase/server'
-import { getCreateProjectData } from '~/schemas/projects/create'
+import { createProject } from './action'
 
 type Props = {
   searchParams: {
@@ -102,41 +99,4 @@ export default function Page({ searchParams }: Props) {
       </Flex>
     </form>
   )
-}
-
-async function createProject(form: FormData) {
-  'use server'
-
-  const result = getCreateProjectData(form)
-
-  if (result.error) {
-    redirect(`/app/new?error=${encodeURIComponent(result.error.message)}`)
-
-    return
-  }
-
-  const supabase = createClient()
-
-  const session = await supabase.auth.getSession()
-
-  if (!session.data.session) {
-    redirect(`/app/new?error=${encodeURIComponent('Not signed in')}`)
-
-    return
-  }
-
-  const { error } = await supabase.from('projects').insert({
-    id: createProjectId(),
-    locale: result.data.locale,
-    name: result.data.name,
-    slug: result.data.slug,
-  })
-
-  if (error) {
-    redirect(`/app/new?error=${encodeURIComponent(error.message)}`)
-
-    return
-  }
-
-  redirect(`/app/${result.data.slug}`)
 }

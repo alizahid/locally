@@ -13,9 +13,9 @@ import { type Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 
-import { NavLink, redirect } from '~/intl'
-import { createClient } from '~/lib/supabase/server'
-import { getSignInData } from '~/schemas/auth/sign-in'
+import { NavLink } from '~/intl'
+
+import { signIn } from './action'
 
 type Props = {
   searchParams: {
@@ -85,31 +85,4 @@ export default function Page({ searchParams }: Props) {
       </Flex>
     </form>
   )
-}
-
-async function signIn(form: FormData) {
-  'use server'
-
-  const result = getSignInData(form)
-
-  if (result.error) {
-    redirect(`/auth/sign-in?error=${encodeURIComponent(result.error.message)}`)
-
-    return
-  }
-
-  const supabase = createClient()
-
-  const { error } = await supabase.auth.signInWithPassword({
-    email: result.data.email,
-    password: result.data.password,
-  })
-
-  if (error) {
-    redirect(`/auth/sign-in?error=${encodeURIComponent(error.message)}`)
-
-    return
-  }
-
-  redirect('/app')
 }

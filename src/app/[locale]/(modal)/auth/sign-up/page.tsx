@@ -14,9 +14,9 @@ import { type Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 
-import { NavLink, redirect } from '~/intl'
-import { createClient } from '~/lib/supabase/server'
-import { getSignUpData } from '~/schemas/auth/sign-up'
+import { NavLink } from '~/intl'
+
+import { signUp } from './action'
 
 type Props = {
   searchParams: {
@@ -36,7 +36,7 @@ export default function Page({ searchParams }: Props) {
   const t = useTranslations('page.auth.signUp')
 
   return (
-    <form action={signIn}>
+    <form action={signUp}>
       <Flex direction="column" gap="4">
         <Heading>{t('title')}</Heading>
 
@@ -112,37 +112,4 @@ export default function Page({ searchParams }: Props) {
       </Flex>
     </form>
   )
-}
-
-async function signIn(form: FormData) {
-  'use server'
-
-  const result = getSignUpData(form)
-
-  if (result.error) {
-    redirect(`/auth/sign-in?error=${encodeURIComponent(result.error.message)}`)
-
-    return
-  }
-
-  const supabase = createClient()
-
-  const { error } = await supabase.auth.signUp({
-    email: result.data.email,
-    options: {
-      data: {
-        first_name: result.data.firstName,
-        last_name: result.data.lastName,
-      },
-    },
-    password: result.data.password,
-  })
-
-  if (error) {
-    redirect(`/auth/sign-up?error=${encodeURIComponent(error.message)}`)
-
-    return
-  }
-
-  redirect('/app')
 }
