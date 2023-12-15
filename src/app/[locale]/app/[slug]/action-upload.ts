@@ -3,14 +3,14 @@
 import { z } from 'zod'
 
 import { redirect } from '~/intl'
-import { createTranslationId } from '~/lib/slug'
+import { createTranslationId, ProjectIdSchema } from '~/lib/slug'
 import { createClient } from '~/lib/supabase/server'
-import { TranslationSchema } from '~/lib/translations'
+import { LanguageSchema, TranslationSchema } from '~/lib/translations'
 
 const schema = z.object({
   data: TranslationSchema,
-  locale: z.string(),
-  projectId: z.string(),
+  locale: LanguageSchema,
+  projectId: ProjectIdSchema,
 })
 
 export async function upload(slug: string, data: z.infer<typeof schema>) {

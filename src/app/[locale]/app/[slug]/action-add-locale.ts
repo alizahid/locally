@@ -3,13 +3,13 @@
 import { z } from 'zod'
 
 import { redirect } from '~/intl'
-import { createTranslationId } from '~/lib/slug'
+import { createTranslationId, ProjectIdSchema } from '~/lib/slug'
 import { createClient } from '~/lib/supabase/server'
 import { LanguageSchema } from '~/lib/translations'
 
 const schema = z.object({
   locale: LanguageSchema,
-  projectId: z.string(),
+  projectId: ProjectIdSchema,
 })
 
 export async function addLocale(slug: string, data: z.infer<typeof schema>) {
