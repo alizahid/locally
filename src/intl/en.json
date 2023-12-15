@@ -50,6 +50,11 @@
               "submit": "Add locale"
             },
             "description": "Add a language you want to translate your content to.",
+            "field": {
+              "locale": {
+                "label": "Locale"
+              }
+            },
             "title": "Add locale"
           },
           "header": {
@@ -60,6 +65,7 @@
         },
         "upload": {
           "action": "Upload",
+          "description": "This will override your existing phrases!",
           "file": "{name} ({keys, plural, =0 {no phrases} =1 {1 phrase} other {# phrases}})",
           "placeholder": "Select file",
           "title": "Upload JSON for {locale} ({country})"

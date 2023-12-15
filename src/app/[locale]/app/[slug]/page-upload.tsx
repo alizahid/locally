@@ -6,7 +6,7 @@ import {
   ExclamationTriangleIcon,
   FileIcon,
 } from '@radix-ui/react-icons'
-import { Button, Callout, Card, Flex, Heading } from '@radix-ui/themes'
+import { Button, Callout, Card, Flex, Heading, Text } from '@radix-ui/themes'
 import { useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
@@ -85,6 +85,10 @@ export function PageUpload({ project }: Props) {
               locale: tLocale(`${project.locale}.name`),
             })}
           </Heading>
+
+          <Text color="amber" mt="-2" size="2">
+            {t('description')}
+          </Text>
 
           {searchParams.has('error') ? (
             <Callout.Root color="red" size="1" variant="surface">
