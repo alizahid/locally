@@ -17,6 +17,14 @@ module.exports = {
     React: true,
   },
   ignorePatterns: ['node_modules/', 'dist/', 'build/'],
+  overrides: [
+    {
+      files: ['*.js'],
+      rules: {
+        '@typescript-eslint/no-misused-promises': 'off',
+      },
+    },
+  ],
   parserOptions: {
     project,
   },

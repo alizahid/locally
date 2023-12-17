@@ -7,6 +7,7 @@ import { type ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 import { mono, sans } from '~/assets/fonts'
+import { Toast } from '~/components/common/toast'
 import { type Locale, locales, messages, setRequestLocale } from '~/intl'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -43,6 +44,8 @@ export default function Layout({ children, params }: Props) {
           timeZone="Asia/Dubai"
         >
           <Theme accentColor="orange" radius="large">
+            <Toast />
+
             {children}
           </Theme>
         </NextIntlClientProvider>

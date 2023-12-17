@@ -7,13 +7,21 @@ import {
   PersonIcon,
   PlusCircledIcon,
 } from '@radix-ui/react-icons'
-import { Avatar, Button, Container, DropdownMenu, Flex } from '@radix-ui/themes'
+import {
+  Avatar,
+  Button,
+  Container,
+  DropdownMenu,
+  Flex,
+  Heading,
+  Link,
+} from '@radix-ui/themes'
 import { type User } from '@supabase/supabase-js'
 import { useTranslations } from 'next-intl'
 import { type ReactNode } from 'react'
 
 import { Logo } from '~/components/common/logo'
-import { useRouter } from '~/intl'
+import { NavLink, useRouter } from '~/intl'
 import { getInitials } from '~/lib/helpers'
 import { createClient } from '~/lib/supabase/client'
 import { type ProjectsData } from '~/queries/projects'
@@ -36,7 +44,15 @@ export function LayoutClient({ children, project, projects, user }: Props) {
     <Container p="4">
       <Flex direction="column" gap="6">
         <Flex gap="6" justify="between">
-          <Logo className="h-6 w-6" />
+          <Flex align="center" gap="2">
+            <Logo className="h-6 w-6" />
+
+            <Link asChild>
+              <NavLink href={`/app/${project.slug}`}>
+                <Heading size="4">{project.name}</Heading>
+              </NavLink>
+            </Link>
+          </Flex>
 
           <Flex gap="4">
             <DropdownMenu.Root>

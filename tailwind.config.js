@@ -3,6 +3,11 @@ module.exports = {
   content: ['src/**/*.tsx'],
   plugins: [],
   theme: {
+    animation: {
+      hide: 'hide 100ms ease-in',
+      slideIn: 'slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+      swipeOut: 'swipeOut 100ms ease-out',
+    },
     borderRadius: {
       1: 'var(--radius-1)',
       2: 'var(--radius-2)',
@@ -40,6 +45,32 @@ module.exports = {
       light: '300',
       medium: '500',
       regular: '400',
+    },
+    keyframes: {
+      hide: {
+        from: {
+          opacity: 1,
+        },
+        to: {
+          opacity: 0,
+        },
+      },
+      slideIn: {
+        from: {
+          transform: 'translateX(calc(100% + var(--space-4)))',
+        },
+        to: {
+          transform: 'translateX(0)',
+        },
+      },
+      swipeOut: {
+        from: {
+          transform: 'translateX(var(--radix-toast-swipe-end-x))',
+        },
+        to: {
+          transform: 'translateX(calc(100% + var(--space-4)))',
+        },
+      },
     },
     letterSpacing: {
       1: 'var(--letter-spacing-1)',

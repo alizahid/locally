@@ -1,4 +1,10 @@
 {
+  "action": {
+    "savePhrases": {
+      "success": "Saved successfully",
+      "translationNotFound": "Translation not found"
+    }
+  },
   "layout": {
     "app": {
       "project": {
@@ -57,7 +63,7 @@
             },
             "title": "Add locale"
           },
-          "header": {
+          "table": {
             "country": "Country",
             "locale": "Locale"
           },
@@ -70,6 +76,17 @@
           "placeholder": "Select file",
           "title": "Upload JSON for {locale} ({country})"
         }
+      },
+      "translations": {
+        "header": {
+          "save": "Save",
+          "title": "{locale} ({country})",
+          "translate": "Translate"
+        },
+        "table": {
+          "key": "Key"
+        },
+        "title": "{project} → {locale} ({country})"
       }
     },
     "auth": {

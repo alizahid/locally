@@ -37,6 +37,8 @@ create table translations (
   project_id text not null references projects on delete cascade,
   locale text not null,
   data jsonb not null,
+  updated boolean not null,
+  translated boolean not null,
   created_at timestamp without time zone not null default now()
 );
 
@@ -46,6 +48,7 @@ create table generations (
   project_id text not null references projects on delete cascade,
   model text not null,
   locale text not null,
+  key text not null,
   phrase text not null,
   translation text not null,
   liked boolean,
@@ -58,13 +61,13 @@ create table generations (
 create unique index projects__slug on projects(slug);
 
 -- collaborators
-create unique index collaborators__user on collaborators(project_id, user_id);
+create unique index collaborators__project_user on collaborators(project_id, user_id);
 
 -- translations
-create unique index translations__locale on translations(project_id, locale);
+create unique index translations__project_locale on translations(project_id, locale);
 
 -- generations
-create index generations__phrase on generations(phrase);
+create index generations__project_locale_key on generations(project_id, locale, key);
 
 -- row level security
 -- 

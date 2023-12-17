@@ -77,6 +77,7 @@ export interface Database {
         Row: {
           created_at: string
           id: string
+          key: string
           liked: boolean | null
           locale: string
           model: string
@@ -87,6 +88,7 @@ export interface Database {
         Insert: {
           created_at?: string
           id: string
+          key: string
           liked?: boolean | null
           locale: string
           model: string
@@ -97,6 +99,7 @@ export interface Database {
         Update: {
           created_at?: string
           id?: string
+          key?: string
           liked?: boolean | null
           locale?: string
           model?: string
@@ -145,6 +148,8 @@ export interface Database {
           id: string
           locale: string
           project_id: string
+          translated: boolean
+          updated: boolean
         }
         Insert: {
           created_at?: string
@@ -152,6 +157,8 @@ export interface Database {
           id: string
           locale: string
           project_id: string
+          translated: boolean
+          updated: boolean
         }
         Update: {
           created_at?: string
@@ -159,6 +166,8 @@ export interface Database {
           id?: string
           locale?: string
           project_id?: string
+          translated?: boolean
+          updated?: boolean
         }
         Relationships: [
           {

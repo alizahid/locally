@@ -53,6 +53,8 @@ export async function upload(slug: string, data: z.infer<typeof schema>) {
     id: createTranslationId(),
     locale: result.data.locale,
     project_id: result.data.projectId,
+    translated: true,
+    updated: true,
   })
 
   if (error) {

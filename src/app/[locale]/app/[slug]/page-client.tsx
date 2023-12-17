@@ -1,4 +1,4 @@
-import { Flex, Grid, Heading } from '@radix-ui/themes'
+import { Grid } from '@radix-ui/themes'
 
 import { type ProjectData } from '~/queries/project'
 
@@ -11,20 +11,16 @@ export type Props = {
 
 export function PageClient({ project }: Props) {
   return (
-    <Flex direction="column" gap="4">
-      <Heading>{project.name}</Heading>
+    <Grid
+      align="start"
+      columns={{
+        md: '2',
+      }}
+      gap="4"
+    >
+      <PageTranslations project={project} />
 
-      <Grid
-        align="start"
-        columns={{
-          md: '2',
-        }}
-        gap="4"
-      >
-        <PageTranslations project={project} />
-
-        <PageUpload project={project} />
-      </Grid>
-    </Flex>
+      <PageUpload project={project} />
+    </Grid>
   )
 }

@@ -45,11 +45,11 @@ export function PageTranslations({ project }: Props) {
             <Table.Header>
               <Table.Row>
                 <Table.ColumnHeaderCell>
-                  {t('header.locale')}
+                  {t('table.locale')}
                 </Table.ColumnHeaderCell>
 
                 <Table.ColumnHeaderCell>
-                  {t('header.country')}
+                  {t('table.country')}
                 </Table.ColumnHeaderCell>
               </Table.Row>
             </Table.Header>
