@@ -35,7 +35,7 @@ type Props = {
 
 const supabase = createClient()
 
-export function LayoutClient({ children, project, projects, user }: Props) {
+export function ProjectLayout({ children, project, projects, user }: Props) {
   const router = useRouter()
 
   const t = useTranslations('layout.app')

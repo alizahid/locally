@@ -7,12 +7,12 @@ import { createClient } from '~/lib/supabase/server'
 import { phrasesToData } from '~/lib/translations'
 import { type FunctionResponse } from '~/types/response'
 
-import { schema } from './schema-translations'
+import { SavePhrasesSchema } from '../schemas/save-phrases'
 
 export async function savePhrases(
-  data: z.infer<typeof schema>,
+  data: z.infer<typeof SavePhrasesSchema>,
 ): Promise<FunctionResponse> {
-  const result = schema.safeParse(data)
+  const result = SavePhrasesSchema.safeParse(data)
 
   if (!result.success) {
     return {

@@ -1,9 +1,8 @@
 import { type Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
+import { ProjectPage } from '~/modules/project/pages/project'
 import { fetchProject } from '~/queries/project'
-
-import { PageClient } from './page-client'
 
 type Props = {
   params: {
@@ -30,5 +29,5 @@ export default async function Page({ params }: Props) {
     notFound()
   }
 
-  return <PageClient project={project} />
+  return <ProjectPage project={project} />
 }

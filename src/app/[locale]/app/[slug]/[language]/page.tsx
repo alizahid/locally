@@ -3,10 +3,9 @@ import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 
 import { type Language } from '~/lib/translations'
+import { TranslationPage } from '~/modules/translations/pages/translation'
 import { fetchProject } from '~/queries/project'
 import { fetchTranslation } from '~/queries/translation'
-
-import { PageClient } from './page-client'
 
 type Props = {
   params: {
@@ -53,5 +52,7 @@ export default async function Page({ params }: Props) {
     notFound()
   }
 
-  return <PageClient base={base} project={project} translation={translation} />
+  return (
+    <TranslationPage base={base} project={project} translation={translation} />
+  )
 }

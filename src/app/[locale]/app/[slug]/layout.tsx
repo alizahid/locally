@@ -2,9 +2,8 @@ import { type ReactNode } from 'react'
 
 import { redirect } from '~/intl'
 import { createClient } from '~/lib/supabase/server'
+import { ProjectLayout } from '~/modules/project/layouts/project'
 import { fetchProjects } from '~/queries/projects'
-
-import { LayoutClient } from './layout-client'
 
 type Props = {
   children: ReactNode
@@ -35,12 +34,12 @@ export default async function Layout({ children, params }: Props) {
   }
 
   return (
-    <LayoutClient
+    <ProjectLayout
       project={project}
       projects={projects}
       user={session.data.session.user}
     >
       {children}
-    </LayoutClient>
+    </ProjectLayout>
   )
 }

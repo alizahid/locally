@@ -2,14 +2,14 @@ import { Grid } from '@radix-ui/themes'
 
 import { type ProjectData } from '~/queries/project'
 
-import { PageTranslations } from './page-translations'
-import { PageUpload } from './page-upload'
+import { Translations } from '../components/translations'
+import { Upload } from '../components/upload'
 
-export type Props = {
+type Props = {
   project: NonNullable<ProjectData>
 }
 
-export function PageClient({ project }: Props) {
+export function ProjectPage({ project }: Props) {
   return (
     <Grid
       align="start"
@@ -18,9 +18,9 @@ export function PageClient({ project }: Props) {
       }}
       gap="4"
     >
-      <PageTranslations project={project} />
+      <Translations project={project} />
 
-      <PageUpload project={project} />
+      <Upload project={project} />
     </Grid>
   )
 }

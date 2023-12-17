@@ -13,8 +13,8 @@ import { getPhrase, getPhrases } from '~/lib/translations'
 import { type ProjectData } from '~/queries/project'
 import { type TranslationData } from '~/queries/translation'
 
-import { savePhrases } from './action-save-phrases'
-import { schema } from './schema-translations'
+import { savePhrases } from '../actions/save-phrases'
+import { SavePhrasesSchema } from '../schemas/save-phrases'
 
 type Props = {
   base: NonNullable<TranslationData>
@@ -22,13 +22,13 @@ type Props = {
   translation: NonNullable<TranslationData>
 }
 
-export function PageClient({ base, project, translation }: Props) {
+export function TranslationPage({ base, project, translation }: Props) {
   const t = useTranslations('page.app.translations')
   const tLocale = useTranslations('shared.locale')
 
   const [loading, start] = useTransition()
 
-  const { control, handleSubmit } = useForm<z.infer<typeof schema>>({
+  const { control, handleSubmit } = useForm<z.infer<typeof SavePhrasesSchema>>({
     defaultValues: {
       baseLocale: base.locale,
       locale: translation.locale,
@@ -39,7 +39,7 @@ export function PageClient({ base, project, translation }: Props) {
       })),
       projectId: project.id,
     },
-    resolver: zodResolver(schema),
+    resolver: zodResolver(SavePhrasesSchema),
   })
 
   const phrases = useFieldArray({

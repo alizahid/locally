@@ -18,7 +18,7 @@ export type TranslationData = {
 }
 
 export function countKeys(data: TranslationData): number {
-  if (typeof data !== 'object') {
+  if (typeof data !== 'object' || Array.isArray(data)) {
     return 0
   }
 

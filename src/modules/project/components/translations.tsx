@@ -1,8 +1,8 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Button,
-  Callout,
   Card,
   Dialog,
   Flex,
@@ -13,25 +13,55 @@ import {
   Table,
   Text,
 } from '@radix-ui/themes'
-import { useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import { toast } from 'react-hot-toast'
+import { type z } from 'zod'
 
-import { NavLink } from '~/intl'
-import { type Language, languages } from '~/lib/translations'
+import { NavLink, useRouter } from '~/intl'
+import { languages } from '~/lib/translations'
+import { type ProjectData } from '~/queries/project'
 
-import { addLocale } from './action-add-locale'
-import { type Props } from './page-client'
+import { addLocale } from '../actions/add-locale'
+import { AddLocaleSchema } from '../schemas/add-locale'
 
-export function PageTranslations({ project }: Props) {
-  const searchParams = useSearchParams()
+type Props = {
+  project: NonNullable<ProjectData>
+}
+
+export function Translations({ project }: Props) {
+  const router = useRouter()
 
   const t = useTranslations('page.app.project.translations')
   const tLocale = useTranslations('shared.locale')
 
+  const [loading, start] = useTransition()
+
   const [open, setOpen] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [locale, setLocale] = useState<Language>()
+
+  const { control, handleSubmit } = useForm<z.infer<typeof AddLocaleSchema>>({
+    defaultValues: {
+      projectId: project.id,
+    },
+    resolver: zodResolver(AddLocaleSchema),
+  })
+
+  const onSubmit = handleSubmit((data) => {
+    start(async () => {
+      const result = await addLocale(data)
+
+      router.refresh()
+
+      setOpen(false)
+
+      if (result.type === 'success') {
+        toast.success(result.message)
+      } else {
+        toast.error(result.message)
+      }
+    })
+  })
 
   return (
     <Card size="2">
@@ -84,61 +114,41 @@ export function PageTranslations({ project }: Props) {
               {t('add.description')}
             </Dialog.Description>
 
-            <form
-              action={async () => {
-                if (!locale) {
-                  return
-                }
-
-                try {
-                  setLoading(true)
-
-                  await addLocale(project.slug, {
-                    locale,
-                    projectId: project.id,
-                  })
-
-                  setOpen(false)
-                } finally {
-                  setLoading(false)
-                }
-              }}
-            >
+            <form onSubmit={onSubmit}>
               <Flex direction="column" gap="4" my="4">
-                {searchParams.has('error') ? (
-                  <Callout.Root color="red" size="1" variant="surface">
-                    <Callout.Text>{searchParams.get('error')}</Callout.Text>
-                  </Callout.Root>
-                ) : null}
-
                 <Text as="label" size="1" weight="medium">
                   <Flex direction="column" gap="1">
                     {t('add.field.locale.label')}
 
-                    <Select.Root
-                      onValueChange={(value) => {
-                        setLocale(value as Language)
-                      }}
-                      required
-                      value={locale}
-                    >
-                      <Select.Trigger />
+                    <Controller
+                      control={control}
+                      name="locale"
+                      render={({ field }) => (
+                        <Select.Root
+                          onValueChange={(value) => {
+                            field.onChange(value)
+                          }}
+                          value={field.value}
+                        >
+                          <Select.Trigger ref={field.ref} />
 
-                      <Select.Content>
-                        {languages
-                          .filter(
-                            (item) =>
-                              item !== project.locale &&
-                              !project.languages.includes(item),
-                          )
-                          .map((item) => (
-                            <Select.Item key={item} value={item}>
-                              {tLocale(`${item}.name`)} (
-                              {tLocale(`${item}.country`)})
-                            </Select.Item>
-                          ))}
-                      </Select.Content>
-                    </Select.Root>
+                          <Select.Content>
+                            {languages
+                              .filter(
+                                (item) =>
+                                  item !== project.locale &&
+                                  !project.languages.includes(item),
+                              )
+                              .map((item) => (
+                                <Select.Item key={item} value={item}>
+                                  {tLocale(`${item}.name`)} (
+                                  {tLocale(`${item}.country`)})
+                                </Select.Item>
+                              ))}
+                          </Select.Content>
+                        </Select.Root>
+                      )}
+                    />
                   </Flex>
                 </Text>
               </Flex>

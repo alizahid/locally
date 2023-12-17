@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { ProjectIdSchema } from '~/lib/slug'
 import { LanguageSchema } from '~/lib/translations'
 
-export const schema = z.object({
+export const SavePhrasesSchema = z.object({
   baseLocale: LanguageSchema,
   locale: LanguageSchema,
   phrases: z.array(

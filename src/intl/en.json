@@ -1,8 +1,15 @@
 {
   "action": {
+    "addLocale": {
+      "success": "Locale added",
+      "translationNotFound": "Translation not found"
+    },
     "savePhrases": {
       "success": "Saved successfully",
       "translationNotFound": "Translation not found"
+    },
+    "uploadBase": {
+      "success": "Phrases updated successfully"
     }
   },
   "layout": {
